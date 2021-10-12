@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using SMSGatewayAPI.Data;
+using SMSGatewayAPI.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,13 +56,15 @@ namespace SMSGatewayAPI
                 {
                     ValidateIssuer = true,
                     ValidateAudience = true,
-                    ValidAudience = "",
-                    ValidIssuer = "",
+                    ValidAudience = "SMSGatewayAPI",
+                    ValidIssuer = "SMSGatewayAPI",
                     RequireExpirationTime = true,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Key that will be used in the encryption")),
                     ValidateIssuerSigningKey = true
                 }
             );
+
+            services.AddScoped<IUserService, UserService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

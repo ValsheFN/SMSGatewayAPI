@@ -140,3 +140,4 @@ C:\dev\SMSGatewayAPI\SMSGatewayAPI.Server\obj\Debug\net5.0\SMSGatewayAPI.pdb
 C:\dev\SMSGatewayAPI\SMSGatewayAPI.Server\obj\Debug\net5.0\SMSGatewayAPI.genruntimeconfig.cache
 C:\dev\SMSGatewayAPI\SMSGatewayAPI.Server\bin\Debug\net5.0\SMSGatewayAPI.Shared.dll
 C:\dev\SMSGatewayAPI\SMSGatewayAPI.Server\bin\Debug\net5.0\SMSGatewayAPI.Shared.pdb
+C:\dev\SMSGatewayAPI\SMSGatewayAPI.Server\obj\Debug\net5.0\SMSGatewayAPI.csproj.CopyComplete
