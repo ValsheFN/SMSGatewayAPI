@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using SMSGatewayAPI.Services;
 using SMSGatewayAPI.Shared;
 using System;
@@ -14,10 +15,12 @@ namespace SMSGatewayAPI.Controllers
     public class AuthController : ControllerBase
     {
         private IUserService _userService;
+        private IConfiguration _configuration;
 
-        public AuthController(IUserService userService)
+        public AuthController(IUserService userService, IConfiguration configuration)
         {
             _userService = userService;
+            _configuration = configuration;
         }
 
         // /api/auth/register
@@ -36,7 +39,27 @@ namespace SMSGatewayAPI.Controllers
                 return BadRequest(result);
             }
 
-            return BadRequest("Some properties are not valid"); //Status code : 400
+            return BadRequest("Internal Server Error"); //Status code : 400
+        }
+
+        // /api/auth/login
+        [HttpPost("Login")]
+        public async Task<IActionResult> LoginAsync([FromBody]LoginViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _userService.LoginUserAsync(model);
+
+                if (result.IsSuccess)
+                {
+                    return Ok(result);
+                }
+
+                return BadRequest(result);
+
+            }
+
+            return BadRequest("Some properties are not valid");
         }
     }
 }

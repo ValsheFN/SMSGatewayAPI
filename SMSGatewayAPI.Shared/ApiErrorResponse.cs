@@ -21,14 +21,14 @@ namespace SMSGatewayProject.Shared
         public ApiErrorResponse(string message)
         {
             Message = message;
-            IsSuccess = false; 
+            IsSuccess = false;
         }
 
         public ApiErrorResponse(string message, string[] errors)
         {
             IsSuccess = false;
             Message = message;
-            Errors = errors; 
+            Errors = errors;
         }
 
     }

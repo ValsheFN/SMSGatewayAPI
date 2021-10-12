@@ -56,10 +56,10 @@ namespace SMSGatewayAPI
                 {
                     ValidateIssuer = true,
                     ValidateAudience = true,
-                    ValidAudience = "SMSGatewayAPI",
-                    ValidIssuer = "SMSGatewayAPI",
+                    ValidAudience = Configuration["AuthSettings:Audience"],
+                    ValidIssuer = Configuration["AuthSettings:Issuer"],
                     RequireExpirationTime = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Key that will be used in the encryption")),
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["AuthSettings:Key"])),
                     ValidateIssuerSigningKey = true
                 }
             );
@@ -87,6 +87,7 @@ namespace SMSGatewayAPI
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

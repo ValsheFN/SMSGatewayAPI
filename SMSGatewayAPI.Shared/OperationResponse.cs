@@ -7,7 +7,7 @@ namespace SMSGatewayProject.Shared
     {
         public string Message { get; set; }
         public bool IsSuccess { get; set; }
-        
+
     }
 
     public class OperationResponse<T> : ApiBaseResponse
