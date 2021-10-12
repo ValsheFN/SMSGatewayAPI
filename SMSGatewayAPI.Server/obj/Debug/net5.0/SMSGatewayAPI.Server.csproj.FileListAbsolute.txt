@@ -1,0 +1,7 @@
+C:\dev\SMSGatewayAPI\SMSGatewayAPI.Server\obj\Debug\net5.0\SMSGatewayAPI.Server.csproj.AssemblyReference.cache
+C:\dev\SMSGatewayAPI\SMSGatewayAPI.Server\obj\Debug\net5.0\SMSGatewayAPI.Server.GeneratedMSBuildEditorConfig.editorconfig
+C:\dev\SMSGatewayAPI\SMSGatewayAPI.Server\obj\Debug\net5.0\SMSGatewayAPI.Server.AssemblyInfoInputs.cache
+C:\dev\SMSGatewayAPI\SMSGatewayAPI.Server\obj\Debug\net5.0\SMSGatewayAPI.Server.AssemblyInfo.cs
+C:\dev\SMSGatewayAPI\SMSGatewayAPI.Server\obj\Debug\net5.0\SMSGatewayAPI.Server.csproj.CoreCompileInputs.cache
+C:\dev\SMSGatewayAPI\SMSGatewayAPI.Server\obj\Debug\net5.0\SMSGatewayAPI.Server.MvcApplicationPartsAssemblyInfo.cs
+C:\dev\SMSGatewayAPI\SMSGatewayAPI.Server\obj\Debug\net5.0\SMSGatewayAPI.Server.MvcApplicationPartsAssemblyInfo.cache
