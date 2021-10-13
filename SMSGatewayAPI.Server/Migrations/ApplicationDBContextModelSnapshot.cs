@@ -258,12 +258,36 @@ namespace SMSGatewayAPI.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ContactGroupName")
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GroupName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ContactGroupId");
 
                     b.ToTable("ContactGroups");
+                });
+
+            modelBuilder.Entity("SMSGatewayAPI.Models.Group", b =>
+                {
+                    b.Property<int>("GroupId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("GroupName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("GroupId");
+
+                    b.ToTable("Groups");
                 });
 
             modelBuilder.Entity("SMSGatewayAPI.Models.Logs", b =>
@@ -306,6 +330,31 @@ namespace SMSGatewayAPI.Migrations
                     b.HasKey("SmsTemplateId");
 
                     b.ToTable("SmsTemplates");
+                });
+
+            modelBuilder.Entity("SMSGatewayAPI.Models.TopUp", b =>
+                {
+                    b.Property<string>("TopUpId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ContactId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("GrantDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("RequestDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Requester")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("TopUpId");
+
+                    b.ToTable("TopUps");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

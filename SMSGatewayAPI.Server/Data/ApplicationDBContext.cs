@@ -12,8 +12,9 @@ namespace SMSGatewayAPI.Data
         }
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<ContactGroup> ContactGroups { get; set; }
+        public DbSet<Group> Groups { get; set; }
         public DbSet<Logs> Logs { get; set; }
         public DbSet<SmsTemplate> SmsTemplates { get; set; }
-
+        public DbSet<TopUp> TopUps { get; set; }
     }
 }

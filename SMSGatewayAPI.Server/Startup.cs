@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using SMSGatewayAPI.Data;
+using SMSGatewayAPI.Models;
 using SMSGatewayAPI.Services;
 using System;
 using System.Collections.Generic;
@@ -43,6 +44,7 @@ namespace SMSGatewayAPI
             {
                 options.Password.RequireDigit = true;
                 options.Password.RequireLowercase = true;
+                options.Password.RequireUppercase = true;
                 options.Password.RequiredLength = 5;
             }).AddEntityFrameworkStores<ApplicationDBContext>()
                 .AddDefaultTokenProviders();
@@ -84,7 +86,7 @@ namespace SMSGatewayAPI
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SMSGatewayAPI.Server v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SMS Gateway API v1"));
             }
 
             app.UseHttpsRedirection();

@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SMSGatewayAPI.Shared", "..\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMSGatewayAPI", "..\SMSGatewayAPI.Server\SMSGatewayAPI.csproj", "{4F7F2B1B-6899-454F-AEBF-0599E0502311}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMSGatewayAPI.Repositories", "..\Repositories\SMSGatewayAPI.Repositories.csproj", "{38A71CD4-660D-425C-8033-64612AE9AF30}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{4F7F2B1B-6899-454F-AEBF-0599E0502311}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F7F2B1B-6899-454F-AEBF-0599E0502311}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F7F2B1B-6899-454F-AEBF-0599E0502311}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38A71CD4-660D-425C-8033-64612AE9AF30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38A71CD4-660D-425C-8033-64612AE9AF30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38A71CD4-660D-425C-8033-64612AE9AF30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38A71CD4-660D-425C-8033-64612AE9AF30}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

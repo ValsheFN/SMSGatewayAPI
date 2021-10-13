@@ -52,7 +52,10 @@ namespace SMSGatewayAPI.Migrations
                 {
                     ContactGroupId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ContactGroupName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    GroupName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -77,6 +80,19 @@ namespace SMSGatewayAPI.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Contacts", x => x.ContactId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Groups",
+                columns: table => new
+                {
+                    GroupId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    GroupName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Groups", x => x.GroupId);
                 });
 
             migrationBuilder.CreateTable(
@@ -107,6 +123,22 @@ namespace SMSGatewayAPI.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_SmsTemplates", x => x.SmsTemplateId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TopUps",
+                columns: table => new
+                {
+                    TopUpId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ContactId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Requester = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RequestDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    GrantDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TopUps", x => x.TopUpId);
                 });
 
             migrationBuilder.CreateTable(
@@ -279,10 +311,16 @@ namespace SMSGatewayAPI.Migrations
                 name: "Contacts");
 
             migrationBuilder.DropTable(
+                name: "Groups");
+
+            migrationBuilder.DropTable(
                 name: "Logs");
 
             migrationBuilder.DropTable(
                 name: "SmsTemplates");
+
+            migrationBuilder.DropTable(
+                name: "TopUps");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
