@@ -65,8 +65,12 @@ namespace SMSGatewayAPI
             );
 
             services.AddScoped<IUserService, UserService>();
+            services.AddTransient<IMailService, SendGridMailService>();
 
             services.AddControllers();
+
+            services.AddRazorPages();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SMS Gateway API", Version = "v1" });
@@ -85,6 +89,8 @@ namespace SMSGatewayAPI
 
             app.UseHttpsRedirection();
 
+            app.UseStaticFiles();
+
             app.UseRouting();
 
             app.UseAuthentication();
@@ -92,6 +98,7 @@ namespace SMSGatewayAPI
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapRazorPages();
                 endpoints.MapControllers();
             });
         }
