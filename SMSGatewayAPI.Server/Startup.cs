@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -9,14 +10,17 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using SMSGatewayAPI.Data;
+using SMSGatewayAPI.Middlewares;
 using SMSGatewayAPI.Models;
 using SMSGatewayAPI.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -37,10 +41,13 @@ namespace SMSGatewayAPI
             //Configure EntityFrameworkCore with SQL Server
             services.AddDbContext<ApplicationDBContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), sqlOptions =>
+                {
+                    sqlOptions.MigrationsAssembly("SMSGatewayAPI");
+                });
             });
 
-            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
                 options.Password.RequireDigit = true;
                 options.Password.RequireLowercase = true;
@@ -73,9 +80,64 @@ namespace SMSGatewayAPI
 
             services.AddRazorPages();
 
+            services.AddVersionedApiExplorer(c =>
+            { 
+                c.GroupNameFormat = "'v'VVV";
+                c.SubstituteApiVersionInUrl = true;
+                c.AssumeDefaultVersionWhenUnspecified = true;
+                c.DefaultApiVersion = new ApiVersion(1, 0);
+            });
+
+            services.AddApiVersioning(c =>
+            {
+                c.ReportApiVersions = true;
+                c.AssumeDefaultVersionWhenUnspecified = true;
+                c.DefaultApiVersion = new ApiVersion(1, 0);
+            });
+
             services.AddSwaggerGen(c =>
             {
+                c.EnableAnnotations();
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SMS Gateway API", Version = "v1" });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Please insert token",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.Http,
+                    BearerFormat = "JWT",
+                    Scheme = "bearer"
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {{
+                    new OpenApiSecurityScheme
+                    {
+                        Reference=new OpenApiReference
+                        {
+                            Type=ReferenceType.SecurityScheme,
+                            Id="Bearer"
+                        }
+                    },
+                    new String[]{ }
+                }});
+            });
+
+            services.AddScoped(sp =>
+            {
+                var identityOptions = new Options.IdentityOptions();
+                var httpContext = sp.GetService<IHttpContextAccessor>().HttpContext;
+                if (httpContext.User.Identity.IsAuthenticated)
+                {
+                    identityOptions.UserId = httpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                    identityOptions.FirstName = httpContext.User.FindFirst(ClaimTypes.GivenName).Value;
+                    identityOptions.LastName = httpContext.User.FindFirst(ClaimTypes.Surname).Value;
+                }
+                return identityOptions;
+            });
+
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
             });
         }
 
@@ -89,19 +151,34 @@ namespace SMSGatewayAPI
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SMS Gateway API v1"));
             }
 
+            app.UseMiddleware<ErrorHandlingMiddleware>();
+
+            app.UseCors("CorsPolicy");
+
             app.UseHttpsRedirection();
 
             app.UseStaticFiles();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SMS Gateway API v1"));
 
             app.UseRouting();
 
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
+            /*app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
                 endpoints.MapControllers();
+            });*/
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }

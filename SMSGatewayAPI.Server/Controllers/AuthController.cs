@@ -1,12 +1,18 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using SMSGatewayAPI.Models;
 using SMSGatewayAPI.Services;
+using SMSGatewayAPI.Exceptions;
 using SMSGatewayAPI.Shared;
+using SMSGatewayProject.Shared.V1.Responses;
+using SMSGatewayProject.Shared.V1.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+using SMSGatewayProject.Shared;
 
 namespace SMSGatewayAPI.Controllers
 {
@@ -27,6 +33,8 @@ namespace SMSGatewayAPI.Controllers
 
         // /api/auth/register
         [HttpPost("Register")]
+        [ProducesResponseType(200, Type = typeof(ApiResponse))]
+        [ProducesResponseType(400, Type = typeof(ApiErrorResponse))]
         public async Task<ActionResult> RegisterAsync([FromBody]RegisterViewModel model)
         {
             if (ModelState.IsValid)
@@ -42,10 +50,12 @@ namespace SMSGatewayAPI.Controllers
             }
 
             return BadRequest("Internal Server Error"); //Status code : 400
-        }
+         }
 
         // /api/auth/login
         [HttpPost("Login")]
+        [ProducesResponseType(200, Type = typeof(ApiResponse<AccessTokenResult>))]
+        [ProducesResponseType(400, Type = typeof(ApiErrorResponse))]
         public async Task<IActionResult> LoginAsync([FromBody]LoginViewModel model)
         {
             if (ModelState.IsValid)
@@ -67,6 +77,8 @@ namespace SMSGatewayAPI.Controllers
 
         // /api/auth/confirmemail?userId&token
         [HttpGet("ConfirmEmail")]
+        [ProducesResponseType(200, Type = typeof(ApiResponse<AccessTokenResult>))]
+        [ProducesResponseType(400, Type = typeof(ApiErrorResponse))]
         public async Task<IActionResult> ConfirmEmail(string userId, string token)
         {
             if(string.IsNullOrWhiteSpace(userId) || string.IsNullOrEmpty(token))
@@ -87,6 +99,8 @@ namespace SMSGatewayAPI.Controllers
 
         // api/auth/forgetpassword
         [HttpPost("ForgetPassword")]
+        [ProducesResponseType(200, Type = typeof(ApiResponse<AccessTokenResult>))]
+        [ProducesResponseType(400, Type = typeof(ApiErrorResponse))]
         public async Task<IActionResult> ForgetPassword(string email)
         {
             if (string.IsNullOrEmpty(email))
@@ -106,6 +120,8 @@ namespace SMSGatewayAPI.Controllers
 
         // api/auth/resetpassword
         [HttpPost("ResetPassword")]
+        [ProducesResponseType(200, Type = typeof(ApiResponse<AccessTokenResult>))]
+        [ProducesResponseType(400, Type = typeof(ApiErrorResponse))]
         public async Task<IActionResult> ResetPassword([FromForm]ResetPasswordViewModel model)
         {
             if (ModelState.IsValid)

@@ -11,6 +11,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using SMSGatewayAPI.Models;
 
 namespace SMSGatewayAPI.Services
 {
@@ -29,11 +30,11 @@ namespace SMSGatewayAPI.Services
 
     public class UserService : IUserService
     {
-        private UserManager<IdentityUser> _userManager;
+        private UserManager<ApplicationUser> _userManager;
         private IConfiguration _configuration;
         private IMailService _mailService;
 
-        public UserService(UserManager<IdentityUser> userManager, IConfiguration configuration, IMailService mailService)
+        public UserService(UserManager<ApplicationUser> userManager, IConfiguration configuration, IMailService mailService)
         {
             _userManager = userManager;
             _configuration = configuration;
@@ -52,26 +53,26 @@ namespace SMSGatewayAPI.Services
                     IsSuccess = false
                 };
 
-            var identityUser = new IdentityUser
+            var ApplicationUser = new ApplicationUser
             {
                 Email = model.Email,
                 UserName = model.Email
             };
 
-            var result = await _userManager.CreateAsync(identityUser, model.Password);
+            var result = await _userManager.CreateAsync(ApplicationUser, model.Password);
 
             if (result.Succeeded)
             {
                 //Generate email confirmation token
-                var confirmEmailToken = await _userManager.GenerateEmailConfirmationTokenAsync(identityUser);
+                var confirmEmailToken = await _userManager.GenerateEmailConfirmationTokenAsync(ApplicationUser);
                 //Generate byte array for the token
                 var encodedEmailToken = Encoding.UTF8.GetBytes(confirmEmailToken);
                 var validEmailToken = WebEncoders.Base64UrlEncode(encodedEmailToken);
 
-                string url = $"{_configuration["AppUrl"]}/api/auth/confirmemail?userId={identityUser.Id}&token={validEmailToken}";
+                string url = $"{_configuration["AppUrl"]}/api/auth/confirmemail?userId={ApplicationUser.Id}&token={validEmailToken}";
                 
                 //Send email confirmation
-                await _mailService.SendEmailAsync(identityUser.Email,"Confirm your email", "<h1>Welcome to Auth Demo</h1>" +
+                await _mailService.SendEmailAsync(ApplicationUser.Email,"Confirm your email", "<h1>Welcome to Auth Demo</h1>" +
                     $"<p>Please confirm your email by <a href='{url}'>Clicking here</a></p>");
 
                 return new UserManagerResponse

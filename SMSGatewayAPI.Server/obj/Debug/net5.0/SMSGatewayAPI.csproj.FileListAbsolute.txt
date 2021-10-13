@@ -155,3 +155,6 @@ C:\dev\SMSGatewayAPI\SMSGatewayAPI.Server\obj\Debug\net5.0\SMSGatewayAPI.Views.p
 C:\dev\SMSGatewayAPI\SMSGatewayAPI.Server\obj\Debug\net5.0\SMSGatewayAPI.csproj.CopyComplete
 C:\dev\SMSGatewayAPI\SMSGatewayAPI.Server\bin\Debug\net5.0\FluentEmail.Core.dll
 C:\dev\SMSGatewayAPI\SMSGatewayAPI.Server\bin\Debug\net5.0\FluentEmail.Smtp.dll
+C:\dev\SMSGatewayAPI\SMSGatewayAPI.Server\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.Versioning.dll
+C:\dev\SMSGatewayAPI\SMSGatewayAPI.Server\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer.dll
+C:\dev\SMSGatewayAPI\SMSGatewayAPI.Server\bin\Debug\net5.0\Swashbuckle.AspNetCore.Annotations.dll

@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.31727.386
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SMSGatewayAPI.Shared", "..\SMSGatewayAPI.Shared\SMSGatewayAPI.Shared.csproj", "{4C2F9362-DC7C-489A-832B-09445ADFD5CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMSGatewayAPI", "..\SMSGatewayAPI.Server\SMSGatewayAPI.csproj", "{4F7F2B1B-6899-454F-AEBF-0599E0502311}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SMSGatewayAPI", "..\SMSGatewayAPI.Server\SMSGatewayAPI.csproj", "{4F7F2B1B-6899-454F-AEBF-0599E0502311}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMSGatewayAPI.Repositories", "..\Repositories\SMSGatewayAPI.Repositories.csproj", "{38A71CD4-660D-425C-8033-64612AE9AF30}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SMSGatewayAPI.Repositories", "..\Repositories\SMSGatewayAPI.Repositories.csproj", "{38A71CD4-660D-425C-8033-64612AE9AF30}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

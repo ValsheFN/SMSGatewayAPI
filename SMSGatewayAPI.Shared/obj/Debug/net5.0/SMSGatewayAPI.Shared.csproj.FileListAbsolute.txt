@@ -4,7 +4,6 @@ C:\dev\SMSGatewayAPI\SMSGatewayAPI.Shared\bin\Debug\net5.0\SMSGatewayAPI.Shared.
 C:\dev\SMSGatewayAPI\SMSGatewayAPI.Shared\bin\Debug\net5.0\SMSGatewayAPI.Shared.dll
 C:\dev\SMSGatewayAPI\SMSGatewayAPI.Shared\bin\Debug\net5.0\ref\SMSGatewayAPI.Shared.dll
 C:\dev\SMSGatewayAPI\SMSGatewayAPI.Shared\bin\Debug\net5.0\SMSGatewayAPI.Shared.pdb
-C:\dev\SMSGatewayAPI\SMSGatewayAPI.Shared\obj\Debug\net5.0\SMSGatewayAPI.Shared.csproj.AssemblyReference.cache
 C:\dev\SMSGatewayAPI\SMSGatewayAPI.Shared\obj\Debug\net5.0\SMSGatewayAPI.Shared.GeneratedMSBuildEditorConfig.editorconfig
 C:\dev\SMSGatewayAPI\SMSGatewayAPI.Shared\obj\Debug\net5.0\SMSGatewayAPI.Shared.AssemblyInfoInputs.cache
 C:\dev\SMSGatewayAPI\SMSGatewayAPI.Shared\obj\Debug\net5.0\SMSGatewayAPI.Shared.AssemblyInfo.cs
