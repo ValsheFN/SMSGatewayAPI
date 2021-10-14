@@ -129,8 +129,6 @@ namespace SMSGatewayAPI
                 if (httpContext.User.Identity.IsAuthenticated)
                 {
                     identityOptions.UserId = httpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-                    identityOptions.FirstName = httpContext.User.FindFirst(ClaimTypes.GivenName).Value;
-                    identityOptions.LastName = httpContext.User.FindFirst(ClaimTypes.Surname).Value;
                 }
                 return identityOptions;
             });
@@ -142,7 +140,8 @@ namespace SMSGatewayAPI
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<ApplicationUser> userManager,
+                                RoleManager<IdentityRole> roleManager)
         {
             if (env.IsDevelopment())
             {
@@ -150,6 +149,9 @@ namespace SMSGatewayAPI
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SMS Gateway API v1"));
             }
+
+            var dataSeeding = new UsersSeeding(userManager, roleManager);
+            dataSeeding.SeedData().Wait();
 
             app.UseMiddleware<ErrorHandlingMiddleware>();
 

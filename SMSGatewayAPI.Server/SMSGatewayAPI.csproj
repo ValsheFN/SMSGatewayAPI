@@ -32,8 +32,4 @@
     <ProjectReference Include="..\SMSGatewayAPI.Shared\SMSGatewayAPI.Shared.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
-
 </Project>

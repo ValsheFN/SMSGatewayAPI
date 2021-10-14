@@ -10,7 +10,7 @@ using SMSGatewayAPI.Data;
 namespace SMSGatewayAPI.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20211013175100_InitDatabase")]
+    [Migration("20211014013328_InitDatabase")]
     partial class InitDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
