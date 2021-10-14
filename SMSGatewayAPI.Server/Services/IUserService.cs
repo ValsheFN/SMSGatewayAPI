@@ -12,6 +12,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using SMSGatewayAPI.Models;
+using SMSGatewayAPI.Repositories;
 
 namespace SMSGatewayAPI.Services
 {
@@ -34,7 +35,9 @@ namespace SMSGatewayAPI.Services
         private IConfiguration _configuration;
         private IMailService _mailService;
 
-        public UserService(UserManager<ApplicationUser> userManager, IConfiguration configuration, IMailService mailService)
+        public UserService(UserManager<ApplicationUser> userManager, 
+                            IConfiguration configuration, 
+                            IMailService mailService)
         {
             _userManager = userManager;
             _configuration = configuration;
@@ -44,7 +47,7 @@ namespace SMSGatewayAPI.Services
         public async Task<UserManagerResponse> RegisterUserAsync(RegisterViewModel model)
         {
             if (model == null)
-                throw new NullReferenceException("Register Model is null");
+                throw new NullReferenceException("Required input is empty");
 
             if (model.Password != model.ConfirmPassword)
                 return new UserManagerResponse
@@ -241,5 +244,46 @@ namespace SMSGatewayAPI.Services
             };
         }
 
+        /*public async Task<object> GenerateTokenAsync(LoginViewModel model)
+        {
+            var user = await _unitOfWork.Users.GetUserByEmailAsync(model.Email);
+            if (user == null)
+            {
+                //TODO : Return response with message user not found
+                return null;
+            }
+
+            if (!(await _unitOfWork.Users.CheckPasswordAsync(user, model.Password)))
+            {
+                return null;
+            }
+
+            var userRole = await _unitOfWork.Users.GetUserRoleAsync(user);
+
+            var claims = new Claim[]
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.Id),
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.Role, userRole)
+            };
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_authOptions.Key));
+            var expireDate = DateTime.Now.AddDays(30);
+            var token = new JwtSecurityToken(
+                issuer: _authOptions.Issuer,
+                audience: _authOptions.Audience,
+                claims: claims,
+                expires: expireDate,
+                signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256));
+
+            string tokenAsString = new JwtSecurityTokenHandler().WriteToken(token);
+
+            return new
+            {
+                AccessToken = tokenAsString,
+                ExpiryDate = expireDate
+            };
+
+        }*/
     }
 }

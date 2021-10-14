@@ -72,7 +72,7 @@ namespace SMSGatewayAPI.Controllers
 
             }
 
-            return BadRequest("Some properties are not valid");
+            return BadRequest("Internal Server Error"); //Status code : 400
         }
 
         // /api/auth/confirmemail?userId&token
@@ -115,7 +115,7 @@ namespace SMSGatewayAPI.Controllers
                 return Ok(result); //200
             }
 
-            return BadRequest(result); //400
+            return BadRequest("Internal Server Error"); //Status code : 400
         }
 
         // api/auth/resetpassword
@@ -136,7 +136,7 @@ namespace SMSGatewayAPI.Controllers
                 return BadRequest(result);
             }
 
-            return BadRequest("Some properties are not valid");
+            return BadRequest("Internal Server Error"); //Status code : 400
         }
 
 

@@ -16,7 +16,9 @@ using Microsoft.OpenApi.Models;
 using SMSGatewayAPI.Data;
 using SMSGatewayAPI.Middlewares;
 using SMSGatewayAPI.Models;
+using SMSGatewayAPI.Repositories;
 using SMSGatewayAPI.Services;
+using SMSGatewayAPI.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -74,6 +76,8 @@ namespace SMSGatewayAPI
             );
 
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUnitOfWork, EfUnitOfWork>();
+
             services.AddTransient<IMailService, SendGridMailService>();
 
             services.AddControllers();
